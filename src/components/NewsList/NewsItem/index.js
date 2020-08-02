@@ -15,8 +15,6 @@ const NewsItem = props => {
         <span className="NewsItem__comments">Comments({kids.length})</span>
         <span className="NewsItem__points">Points({score})</span>
       </div>
-
-      <CommentList />
     </li>
   );
 };

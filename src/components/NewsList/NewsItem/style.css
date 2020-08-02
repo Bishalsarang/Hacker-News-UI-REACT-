@@ -1,6 +1,7 @@
 .NewsItem {
   padding: 20px;
   margin: 12px;
+  cursor: pointer;
   list-style: none;
   text-align: left;
 

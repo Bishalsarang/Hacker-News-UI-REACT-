@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // Import Components
 import NewsItem from './NewsItem';
 import Pagination from './Pagination';
+import CommentsList from '../CommentsList';
 
 import API from '../../services/API';
 
@@ -93,6 +94,17 @@ class NewsList extends Component {
             ))}
           </ul>
         }
+        <CommentsList
+          kids={[
+            24027868,
+            24027583,
+            24027576,
+            24027696,
+            24027589,
+            24027646,
+            24027878,
+          ]}
+        />
       </div>
     );
   }
