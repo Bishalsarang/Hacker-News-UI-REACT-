@@ -7,6 +7,9 @@ import API from '../../services/API';
 // Import Constants
 import * as constant from '../../constants/constants';
 
+// Import Styles
+import './style.css';
+
 class NewsList extends Component {
   constructor(props) {
     super(props);
@@ -43,8 +46,8 @@ class NewsList extends Component {
 
   render() {
     return (
-      <div>
-        {/* {`${this.state.newsDetail}`} */}
+      <div class="NewsList">
+        {this.state.isLoading && <div class="loader"></div>}
         {
           <ul>
             {this.state.newsDetail.map(news => (
