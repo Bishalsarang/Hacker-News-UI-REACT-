@@ -35,19 +35,19 @@ class NewsList extends Component {
   };
 
   fetchNewsDetails = () => {
+    this.setState({ isLoading: true });
     const start = (this.state.currentPageNumber - 1) * constant.ITEMS_PER_PAGE;
     const end = this.state.currentPageNumber * constant.ITEMS_PER_PAGE;
-    console.log(start, end);
-    this.state.newsIdList.slice(start, end).forEach(newsId => {
-      API.fetchUrl(`${constant.STORY_PATH}${newsId}.json`).then(detail => {
-        this.setState({
-          newsDetail: [...this.state.newsDetail, detail],
-        });
-      });
-    });
 
-    this.setState({
-      isLoading: false,
+    let promises = this.state.newsIdList
+      .slice(start, end)
+      .map(newsId => API.fetchUrl(`${constant.STORY_PATH}${newsId}.json`));
+
+    Promise.all(promises).then(details => {
+      this.setState({
+        newsDetail: details,
+        isLoading: false,
+      });
     });
   };
 
@@ -83,7 +83,7 @@ class NewsList extends Component {
         {this.state.isLoading && <div className="loader"></div>}
         {<h3>Page{this.state.currentPageNumber}</h3>}
         {
-          <ul>
+          <ul className="NewsList__items">
             {this.state.newsDetail.map(news => (
               <NewsItem key={news.id} detail={news} />
             ))}
