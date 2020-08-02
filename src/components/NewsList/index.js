@@ -96,6 +96,7 @@ class NewsList extends Component {
               ))}
           </ul>
         }
+
         {selectedItem ? (
           <Modal
             body={<CommentsList kids={selectedItem.kids} />}

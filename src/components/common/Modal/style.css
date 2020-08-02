@@ -11,6 +11,7 @@
   background-color: #f4f4f4;
   margin: 2% auto;
   width: 80%;
+  max-height: 100vh;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
 }
 

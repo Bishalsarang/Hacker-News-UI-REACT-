@@ -37,7 +37,11 @@ class NewsItem extends Component {
 
   render() {
     if (!this.state.detail) {
-      return <div>Loading</div>;
+      return (
+        <li className="NewsItem">
+          <Loader style={{ width: '50px', textAlign: 'center' }} />
+        </li>
+      );
     }
     const { url, title, by, kids, score } = this.state.detail;
     return (
