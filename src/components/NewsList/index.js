@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import Pagination from './Pagination';
 import CommentsList from '../CommentsList';
+import Modal from '../common/Modal';
 
 import API from '../../services/API';
 
@@ -94,16 +95,20 @@ class NewsList extends Component {
             ))}
           </ul>
         }
-        <CommentsList
-          kids={[
-            24027673,
-            24028012,
-            24027679,
-            24027764,
-            24027813,
-            24027762,
-            24028035,
-          ]}
+        <Modal
+          body={
+            <CommentsList
+              kids={[
+                24027673,
+                24028012,
+                24027679,
+                24027764,
+                24027813,
+                24027762,
+                24028035,
+              ]}
+            />
+          }
         />
       </div>
     );

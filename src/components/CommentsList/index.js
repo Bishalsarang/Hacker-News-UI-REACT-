@@ -33,11 +33,12 @@ class CommentsList extends Component {
   render() {
     return (
       <div className="CommentsList">
-        {this.state.comments.map(comment => (
+        {this.state.comments.map(({ id, by, text, kids }) => (
           <CommentItem
-            by={comment.by}
-            text={comment.text}
-            kids={comment.kids ? <CommentsList kids={comment.kids} /> : null}
+            key={id}
+            by={by}
+            text={text}
+            kids={kids ? <CommentsList kids={kids} /> : null}
           />
         ))}
       </div>

@@ -9,7 +9,7 @@ const NewsItem = props => {
     <li className="NewsItem">
       <a href={url}>{title}</a>
       <div className="NewsItem__info">
-        <span className="NewsItem__author">{by}</span>
+        <span className="NewsItem__author">by: {by}</span>
         <span className="NewsItem__comments">
           {kids ? `Comment(${kids.length})` : 0}
         </span>

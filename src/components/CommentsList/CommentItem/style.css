@@ -1,8 +1,12 @@
-.comment__text {
+.CommentItem .Info {
   text-align: left;
   border: 1px solid gray;
   margin: 20px;
   padding: 10px;
   border-radius: 12px;
   background: white;
+}
+
+.CommentItem .author {
+  font-weight: bold;
 }
