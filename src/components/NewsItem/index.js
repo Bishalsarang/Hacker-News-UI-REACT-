@@ -1,7 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class NewsItem extends Component {
-  render() {
-    return <li>Item 1</li>;
-  }
+function NewsItem(props) {
+  const { id, url, title, by } = props.detail;
+  console.log(props.detail);
+  return (
+    <li key={id}>
+      <a href={url}>{title}</a>
+      <span>{by}</span>
+    </li>
+  );
 }
+
+export default NewsItem;

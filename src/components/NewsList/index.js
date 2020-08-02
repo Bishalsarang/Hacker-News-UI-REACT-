@@ -51,10 +51,7 @@ class NewsList extends Component {
         {
           <ul>
             {this.state.newsDetail.map(news => (
-              <li key={news.id}>
-                <a href={news.url}>{news.title}</a>
-                <span>{news.by}</span>
-              </li>
+              <NewsItem detail={news} />
             ))}
           </ul>
         }
