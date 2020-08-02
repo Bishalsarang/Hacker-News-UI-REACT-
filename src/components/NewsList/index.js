@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // Import Components
 import NewsItem from '../NewsItem';
+import API from '../../services/API';
 
 // Import Constants
 import * as constant from '../../constants/constants';
@@ -16,31 +17,28 @@ class NewsList extends Component {
     };
   }
 
-  fetchNews = url => {
+  fetchNews = () => {
     this.setState({ isLoading: true });
 
-    fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({ newsIdList: response, isLoading: false });
-        this.fetchNewsDetails();
-      });
+    // After NewsID is fetched , set state
+    API.fetchNews(constant.TOP_STORIES_URL).then(newsIdList => {
+      this.setState({ newsIdList: newsIdList, isLoading: false });
+      this.fetchNewsDetails();
+    });
   };
 
   fetchNewsDetails = () => {
     this.state.newsIdList.slice(0, 10).forEach(newsId => {
-      fetch(`${constant.STORY_PATH}${newsId}.json`)
-        .then(response => response.json())
-        .then(response => {
-          this.setState({
-            newsDetail: [...this.state.newsDetail, response],
-          });
+      API.fetchUrl(`${constant.STORY_PATH}${newsId}.json`).then(detail => {
+        this.setState({
+          newsDetail: [...this.state.newsDetail, detail],
         });
+      });
     });
   };
 
   componentDidMount() {
-    this.fetchNews(constant.TOP_STORIES_URL);
+    this.fetchNews();
   }
 
   render() {
@@ -50,7 +48,10 @@ class NewsList extends Component {
         {
           <ul>
             {this.state.newsDetail.map(news => (
-              <li key={news.id}>{news.title}</li>
+              <li key={news.id}>
+                <a href={news.url}>{news.title}</a>
+                <span>{news.by}</span>
+              </li>
             ))}
           </ul>
         }
