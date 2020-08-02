@@ -5,13 +5,17 @@ import CommentList from '../../CommentsList';
 import './style.css';
 
 const NewsItem = props => {
-  const { url, title, by } = props.detail;
+  const { url, title, by, kids, score } = props.detail;
 
   return (
     <li className="NewsItem">
       <a href={url}>{title}</a>
-      <span>{by}</span>
-      <button>Comments</button>
+      <div className="NewsItem__info">
+        <span className="NewsItem__author">{by}</span>
+        <span className="NewsItem__comments">Comments({kids.length})</span>
+        <span className="NewsItem__points">Points({score})</span>
+      </div>
+
       <CommentList />
     </li>
   );

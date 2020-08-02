@@ -80,6 +80,10 @@ class NewsList extends Component {
   render() {
     return (
       <div className="NewsList">
+        <Pagination
+          handlePrevClick={this.handlePrevClick}
+          handleNextClick={this.handleNextClick}
+        />
         {this.state.isLoading && <div className="loader"></div>}
         {<h3>Page{this.state.currentPageNumber}</h3>}
         {
@@ -89,10 +93,6 @@ class NewsList extends Component {
             ))}
           </ul>
         }
-        <Pagination
-          handlePrevClick={this.handlePrevClick}
-          handleNextClick={this.handleNextClick}
-        />
       </div>
     );
   }

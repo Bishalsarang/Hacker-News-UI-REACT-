@@ -1,6 +1,14 @@
 .NewsItem {
-  background: gray;
-  color: white;
-  padding: 10px;
-  margin: 4px;
+  padding: 20px;
+  margin: 12px;
+  list-style: none;
+  text-align: left;
+
+  border-radius: 12px;
+  background: linear-gradient(145deg, #d4d4d4, #fbfbfb);
+  box-shadow: 5px 5px 10px #5e5e5e, -5px -5px 10px #ffffff;
+}
+
+.NewsItem span {
+  padding-right: 10px;
 }
