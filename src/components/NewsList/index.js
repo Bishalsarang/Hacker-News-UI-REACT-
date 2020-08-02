@@ -22,6 +22,7 @@ class NewsList extends Component {
     this.state = {
       newsIdList: [],
       isLoading: false,
+      selectedItem: null,
       currentPageNumber: this.props.pageNumber || 1,
     };
   }
@@ -51,46 +52,59 @@ class NewsList extends Component {
     }
   };
 
+  setCurrentNewsId = selectedItem => {
+    this.setState({
+      selectedItem: selectedItem,
+    });
+  };
+
   handleNextClick = () => {
     this.handlePageNav(1);
   };
 
+  handleModalClick = () => {
+    this.setState({
+      selectedItem: null,
+    });
+  };
+
   render() {
+    const { currentPageNumber, isLoading, selectedItem } = this.state;
+
     return (
       <div className="NewsList">
         <Pagination
           handlePrevClick={this.handlePrevClick}
           handleNextClick={this.handleNextClick}
+          currentPageNumber={currentPageNumber}
         />
-        {this.state.isLoading && <Loader width="80px" height="80px" />}
-        {<h3>Page{this.state.currentPageNumber}</h3>}
+        {isLoading && <Loader width="80px" height="80px" />}
+
         {
           <ul className="NewsList__items">
             {this.state.newsIdList
               .slice(
-                (this.state.currentPageNumber - 1) * constant.ITEMS_PER_PAGE,
-                this.state.currentPageNumber * constant.ITEMS_PER_PAGE
+                (currentPageNumber - 1) * constant.ITEMS_PER_PAGE,
+                currentPageNumber * constant.ITEMS_PER_PAGE
               )
               .map(newsId => (
-                <NewsItem key={newsId} id={newsId} />
+                <NewsItem
+                  key={newsId}
+                  id={newsId}
+                  setCurrentNewsId={this.setCurrentNewsId}
+                />
               ))}
           </ul>
         }
-        <Modal
-          body={
-            <CommentsList
-              kids={[
-                24027673,
-                24028012,
-                24027679,
-                24027764,
-                24027813,
-                24027762,
-                24028035,
-              ]}
-            />
-          }
-        />
+        {selectedItem ? (
+          <Modal
+            body={<CommentsList kids={selectedItem.kids} />}
+            title={selectedItem.title}
+            url={selectedItem.url}
+            isVisible={true}
+            handleModalClick={this.handleModalClick}
+          />
+        ) : null}
       </div>
     );
   }

@@ -15,9 +15,11 @@ class NewsItem extends Component {
       isLoading: false,
       detail: null,
     };
-
-    // console.log(this.props);
   }
+
+  handleCommentClick = () => {
+    this.props.setCurrentNewsId(this.state.detail);
+  };
 
   fetchNewsDetail = () => {
     this.setState({ isLoading: true });
@@ -43,9 +45,12 @@ class NewsItem extends Component {
         <a href={url}>{title}</a>
         <div className="NewsItem__info">
           <span className="NewsItem__author">by: {by}</span>
-          <span className="NewsItem__comments">
+          <button
+            className="NewsItem__comments"
+            onClick={this.handleCommentClick}
+          >
             {kids ? `Comment(${kids.length})` : 0}
-          </span>
+          </button>
           <span className="NewsItem__points">Points({score})</span>
         </div>
       </li>
