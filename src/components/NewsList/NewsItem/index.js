@@ -1,22 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
+
+import API from '../../../services/API';
+import * as constant from '../../../constants/constants';
+import Loader from '../../../components/common/Loader';
 
 import './style.css';
 
-const NewsItem = props => {
-  const { url, title, by, kids, score } = props.detail;
+class NewsItem extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <li className="NewsItem">
-      <a href={url}>{title}</a>
-      <div className="NewsItem__info">
-        <span className="NewsItem__author">by: {by}</span>
-        <span className="NewsItem__comments">
-          {kids ? `Comment(${kids.length})` : 0}
-        </span>
-        <span className="NewsItem__points">Points({score})</span>
-      </div>
-    </li>
-  );
-};
+    this.state = {
+      id: this.props.id,
+      isLoading: false,
+      detail: null,
+    };
+
+    // console.log(this.props);
+  }
+
+  fetchNewsDetail = () => {
+    this.setState({ isLoading: true });
+    API.fetchUrl(`${constant.STORY_PATH}${this.state.id}.json`).then(response =>
+      this.setState({
+        isLoading: false,
+        detail: response,
+      })
+    );
+  };
+
+  componentDidMount() {
+    this.fetchNewsDetail();
+  }
+
+  render() {
+    if (!this.state.detail) {
+      return <div>Loading</div>;
+    }
+    const { url, title, by, kids, score } = this.state.detail;
+    return (
+      <li className="NewsItem">
+        <a href={url}>{title}</a>
+        <div className="NewsItem__info">
+          <span className="NewsItem__author">by: {by}</span>
+          <span className="NewsItem__comments">
+            {kids ? `Comment(${kids.length})` : 0}
+          </span>
+          <span className="NewsItem__points">Points({score})</span>
+        </div>
+      </li>
+    );
+  }
+}
 
 export default NewsItem;

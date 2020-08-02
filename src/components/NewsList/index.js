@@ -5,6 +5,7 @@ import NewsItem from './NewsItem';
 import Pagination from './Pagination';
 import CommentsList from '../CommentsList';
 import Modal from '../common/Modal';
+import Loader from '../common/Loader';
 
 import API from '../../services/API';
 
@@ -20,7 +21,6 @@ class NewsList extends Component {
 
     this.state = {
       newsIdList: [],
-      newsDetail: [],
       isLoading: false,
       currentPageNumber: this.props.pageNumber || 1,
     };
@@ -31,25 +31,7 @@ class NewsList extends Component {
 
     // After NewsID is fetched , set state
     API.fetchNews(constant.TOP_STORIES_URL).then(newsIdList => {
-      this.setState({ newsIdList: newsIdList });
-      this.fetchNewsDetails();
-    });
-  };
-
-  fetchNewsDetails = () => {
-    this.setState({ isLoading: true });
-    const start = (this.state.currentPageNumber - 1) * constant.ITEMS_PER_PAGE;
-    const end = this.state.currentPageNumber * constant.ITEMS_PER_PAGE;
-
-    let promises = this.state.newsIdList
-      .slice(start, end)
-      .map(newsId => API.fetchUrl(`${constant.STORY_PATH}${newsId}.json`));
-
-    Promise.all(promises).then(details => {
-      this.setState({
-        newsDetail: details,
-        isLoading: false,
-      });
+      this.setState({ newsIdList: newsIdList, isLoading: false });
     });
   };
 
@@ -57,26 +39,20 @@ class NewsList extends Component {
     this.fetchNews();
   }
 
+  handlePageNav = offset => {
+    this.setState({
+      currentPageNumber: this.state.currentPageNumber + offset,
+    });
+  };
+
   handlePrevClick = () => {
     if (this.state.currentPageNumber >= 2) {
-      this.setState(
-        {
-          currentPageNumber: this.state.currentPageNumber - 1,
-          newsDetail: [],
-        },
-        this.fetchNewsDetails()
-      );
+      this.handlePageNav(-1);
     }
   };
 
   handleNextClick = () => {
-    this.setState(
-      {
-        currentPageNumber: this.state.currentPageNumber + 1,
-        newsDetail: [],
-      },
-      this.fetchNewsDetails()
-    );
+    this.handlePageNav(1);
   };
 
   render() {
@@ -86,13 +62,18 @@ class NewsList extends Component {
           handlePrevClick={this.handlePrevClick}
           handleNextClick={this.handleNextClick}
         />
-        {this.state.isLoading && <div className="loader"></div>}
+        {this.state.isLoading && <Loader width="80px" height="80px" />}
         {<h3>Page{this.state.currentPageNumber}</h3>}
         {
           <ul className="NewsList__items">
-            {this.state.newsDetail.map(news => (
-              <NewsItem key={news.id} detail={news} />
-            ))}
+            {this.state.newsIdList
+              .slice(
+                (this.state.currentPageNumber - 1) * constant.ITEMS_PER_PAGE,
+                this.state.currentPageNumber * constant.ITEMS_PER_PAGE
+              )
+              .map(newsId => (
+                <NewsItem key={newsId} id={newsId} />
+              ))}
           </ul>
         }
         <Modal

@@ -7,11 +7,11 @@ export default class Modal extends Component {
     return (
       <div className="Modal hide">
         <div className="Modal__content">
-          <div class="Modal__header">
+          <div className="Modal__header">
             <h2>Header</h2>
           </div>
 
-          <div class="Modal__body">{this.props.body}</div>
+          <div className="Modal__body">{this.props.body}</div>
         </div>
       </div>
     );
