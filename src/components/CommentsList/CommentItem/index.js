@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
+import './style.css';
 export default class CommentItem extends Component {
   render() {
     return (
       <div className="CommentItem">
-        <div className="comment"></div>
-        <p></p>
-        <div className="sub-comment"></div>
+        <p
+          className="comment__text"
+          dangerouslySetInnerHTML={{ __html: this.props.text }}
+        ></p>
+        {this.props.kids}
       </div>
     );
   }

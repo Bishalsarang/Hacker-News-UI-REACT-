@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
+import CommentItem from './CommentItem';
 import API from '../../services/API';
 
+import './style.css';
 class CommentsList extends Component {
   constructor(props) {
     super(props);
@@ -15,28 +18,27 @@ class CommentsList extends Component {
     this.fetchComments();
   }
 
-  fetchComments = () => {
-    this.state.kids.forEach(kid => {
-      API.fetchUrl(
-        `https://hacker-news.firebaseio.com/v0/item/${kid}.json`
-      ).then(response => {
-        this.setState({
-          comments: [...this.state.comments, response],
-        });
+  fetchComments = async () => {
+    let promises = this.state.kids.map(comment =>
+      API.fetchUrl(`https://hacker-news.firebaseio.com/v0/item/${comment}.json`)
+    );
+
+    Promise.all(promises).then(comments => {
+      this.setState({
+        comments: comments,
       });
     });
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="CommentsList">
         {this.state.comments.map(comment => (
-          <div>
-            <p dangerouslySetInnerHTML={{ __html: comment.text }} />
-
-            <CommentsList kids={comment.kids || []} />
-          </div>
+          <CommentItem
+            by={comment.by}
+            text={comment.text}
+            kids={comment.kids ? <CommentsList kids={comment.kids} /> : null}
+          />
         ))}
       </div>
     );
