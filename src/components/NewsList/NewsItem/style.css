@@ -13,3 +13,8 @@
 .NewsItem span {
   padding-right: 10px;
 }
+
+.NewsItem__author {
+  color: black;
+  font-weight: bold;
+}

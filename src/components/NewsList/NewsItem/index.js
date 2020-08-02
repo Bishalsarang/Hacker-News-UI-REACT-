@@ -46,14 +46,15 @@ class NewsItem extends Component {
     const { url, title, by, kids, score } = this.state.detail;
     return (
       <li className="NewsItem">
+        <p className="NewsItem__author">@ {by}</p>
+
         <a href={url}>{title}</a>
         <div className="NewsItem__info">
-          <span className="NewsItem__author">by: {by}</span>
           <button
             className="NewsItem__comments"
             onClick={this.handleCommentClick}
           >
-            {kids ? `Comment(${kids.length})` : 0}
+            {`Comment(${kids ? kids.length : 0})`}
           </button>
           <span className="NewsItem__points">Points({score})</span>
         </div>

@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Header = props => {
-  return <h1>HackerNews UI</h1>;
+  return (
+    <header>
+      <h1>{props.children}</h1>
+    </header>
+  );
 };
 
 export default Header;

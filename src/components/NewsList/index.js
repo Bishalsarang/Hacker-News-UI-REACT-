@@ -59,7 +59,12 @@ class NewsList extends Component {
   };
 
   handleNextClick = () => {
-    this.handlePageNav(1);
+    if (
+      (this.state.currentPageNumber + 1) * constant.ITEMS_PER_PAGE <=
+      this.state.newsIdList.length
+    ) {
+      this.handlePageNav(1);
+    }
   };
 
   handleModalClick = () => {
