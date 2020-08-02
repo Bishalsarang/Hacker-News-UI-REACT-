@@ -1,0 +1,8 @@
+.CommentsList {
+  margin-left: 40px;
+  border-left: 2px solid gray;
+}
+
+div.NewsList > div.CommentsList > div.CommentItem {
+  border: 0px;
+}
