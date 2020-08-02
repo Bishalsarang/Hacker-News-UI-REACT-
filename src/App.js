@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 
-// Import Components
-import Header from './components/Header';
+// Import Layout Components
+import Header from './shared/Header';
+import Main from './shared/Main';
+import Footer from './shared/Footer';
+
 import NewsList from './components/NewsList';
 
-// Import Global Styles
+// Import AppStyles
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <Header>Hacker News</Header>
-
-        <NewsList />
+        <Main>
+          <NewsList />
+        </Main>
+        <Footer />
       </div>
     );
   }

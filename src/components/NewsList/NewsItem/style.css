@@ -1,0 +1,7 @@
+.NewsItem {
+  background: gray;
+  color: white;
+  padding: 10px;
+  margin: 4px;
+  list-style: none;
+}
