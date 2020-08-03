@@ -31,7 +31,7 @@ class NewsList extends Component {
     this.setState({ isLoading: true });
 
     // After NewsID is fetched , set state
-    API.fetchNews(constant.TOP_STORIES_URL).then(newsIdList => {
+    API.fetchUrl(constant.TOP_STORIES_URL).then(newsIdList => {
       this.setState({ newsIdList: newsIdList, isLoading: false });
     });
   };
@@ -59,7 +59,12 @@ class NewsList extends Component {
   };
 
   handleNextClick = () => {
-    this.handlePageNav(1);
+    if (
+      (this.state.currentPageNumber + 1) * constant.ITEMS_PER_PAGE <=
+      this.state.newsIdList.length
+    ) {
+      this.handlePageNav(1);
+    }
   };
 
   handleModalClick = () => {
@@ -96,6 +101,7 @@ class NewsList extends Component {
               ))}
           </ul>
         }
+
         {selectedItem ? (
           <Modal
             body={<CommentsList kids={selectedItem.kids} />}

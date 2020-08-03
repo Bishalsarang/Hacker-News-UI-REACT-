@@ -37,21 +37,35 @@ class NewsItem extends Component {
 
   render() {
     if (!this.state.detail) {
-      return <div>Loading</div>;
+      return (
+        <li className="NewsItem">
+          <Loader style={{ width: '50px', textAlign: 'center' }} />
+        </li>
+      );
     }
     const { url, title, by, kids, score } = this.state.detail;
     return (
       <li className="NewsItem">
-        <a href={url}>{title}</a>
+        <div>
+          <p>
+            <a href={url}>{title}</a>
+          </p>
+          <span className="NewsItem__author">
+            <i class="fas fa-user"></i> {by}
+          </span>
+          <span className="NewsItem__points">
+            <i class="fas fa-star"></i>({score})
+          </span>
+        </div>
+
         <div className="NewsItem__info">
-          <span className="NewsItem__author">by: {by}</span>
           <button
             className="NewsItem__comments"
             onClick={this.handleCommentClick}
           >
-            {kids ? `Comment(${kids.length})` : 0}
+            <i class="fas fa-comment-alt"></i>
+            {` (${kids ? kids.length : 0})`}
           </button>
-          <span className="NewsItem__points">Points({score})</span>
         </div>
       </li>
     );
