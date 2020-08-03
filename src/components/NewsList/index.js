@@ -31,7 +31,7 @@ class NewsList extends Component {
     this.setState({ isLoading: true });
 
     // After NewsID is fetched , set state
-    API.fetchNews(constant.TOP_STORIES_URL).then(newsIdList => {
+    API.fetchUrl(constant.TOP_STORIES_URL).then(newsIdList => {
       this.setState({ newsIdList: newsIdList, isLoading: false });
     });
   };

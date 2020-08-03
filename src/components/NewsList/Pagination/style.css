@@ -9,3 +9,11 @@
   cursor: pointer;
   background: transparent;
 }
+
+.Pagination .fa-chevron-circle-left {
+  color: #ac00f5;
+}
+
+.Pagination .fa-chevron-circle-right {
+  color: #ac00f5;
+}
