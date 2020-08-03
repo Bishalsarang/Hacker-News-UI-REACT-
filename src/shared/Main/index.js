@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Main = props => {
-  return <div className={`"Main" ${props.className}`}>{props.children}</div>;
+  return <main className={`"Main" ${props.className}`}>{props.children}</main>;
 };
 
 export default Main;

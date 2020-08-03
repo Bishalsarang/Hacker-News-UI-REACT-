@@ -1,17 +1,12 @@
-const fetchNews = async url => {
-  let response = null;
-  try {
-    response = await fetch(url);
-  } catch {}
-  return response.json();
-};
-
 const fetchUrl = async url => {
   let response = null;
   try {
     response = await fetch(url);
-  } catch {}
-  return response.json();
+    return response.json();
+  } catch {
+    console.log('Unable to fetch');
+    return {};
+  }
 };
 
-export default { fetchNews, fetchUrl };
+export default { fetchUrl };
