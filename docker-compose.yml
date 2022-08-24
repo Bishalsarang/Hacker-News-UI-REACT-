@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  app:
+    tty: true
+    container_name: hacker-news-ui-react
+    image: hacker-news-ui-react
+    build: .
+    ports:
+      - 3000:3000

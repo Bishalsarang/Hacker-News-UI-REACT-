@@ -4,7 +4,7 @@ const fetchUrl = async url => {
     response = await fetch(url);
     return response.json();
   } catch {
-    console.log('Unable to fetch');
+    console.log('Issue fetchingsss');
     return {};
   }
 };
